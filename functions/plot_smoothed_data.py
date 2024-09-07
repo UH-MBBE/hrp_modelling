@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 
-
 def plot_smoothed_data(measured_df, smoothed_df, compound='phe'):
     plt.figure(figsize=(8, 6))
 
@@ -32,12 +31,18 @@ def plot_smoothed_data(measured_df, smoothed_df, compound='phe'):
         marker = trial_to_marker[col.split(' ')[-1]]
 
         plt.scatter(measured_time, measured_df[col], color=color, label=col, marker=marker)
-        plt.plot(smoothed_time, smoothed_df[f'{col} smoothed'], color=color, linestyle='-', linewidth=.5, marker=marker, markersize=1)
-
+        plt.plot(smoothed_time, smoothed_df[f'{col} smoothed'], color=color, linewidth=.1, marker='o', markersize=.5)
+        
     # Setting labels, title, and legend
     compound_name = 'Phenol' if compound == 'phe' else 'BPA'
     plt.xlabel('Time (minutes)')
     plt.ylabel('Relative Phenol Concentration')
     plt.title(f'Effect of HRP:Hydrogen Peroxide Ratio on {compound_name} Removal')
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+
+    # save to figures directory
+    plt.savefig(f'../figures/smoothed_{compound}.png', bbox_inches='tight', dpi=300)
+    
     plt.show()
+
+    
