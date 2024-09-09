@@ -51,8 +51,8 @@ def plot_rates_vs_conc_fit(smoothed_df, rates_df, param_df, compound='phe', cuto
         color = ratio_to_color[trial.split(' ')[0]]
         marker = trial_to_marker[trial.split(' ')[2]]
 
-        # Generate fitted curves using Michaelis-Menten equation
-        conc_fit = np.linspace(min(smoothed_concs), max(smoothed_concs), 100)
+        # Generate fitted curves using Michaelis-Menten equation (minus 10 so that we can see the curve hit y=0)
+        conc_fit = np.linspace(min(smoothed_concs)-10, max(smoothed_concs), 100)
 
         # Apply offset concentration and rate
         rate_fit = michaelis_menten(conc_fit - offset_conc, Vmax, Km) + offset_rate
