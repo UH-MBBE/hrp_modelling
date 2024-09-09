@@ -66,6 +66,7 @@ def plot_time_courses(param_df, measurement_df, compound='phe', max_time=20):
     for _, row in param_df.iterrows():
         trial = row
         trial_label = trial['Trial']
+        label = trial_label.split(' ')[0]
 
         # Only process trials for the chosen compound
         if compound not in trial_label:
@@ -89,15 +90,15 @@ def plot_time_courses(param_df, measurement_df, compound='phe', max_time=20):
 
         # Plot the substrate concentrations over time
         plt.plot(time_points, S_t, marker=None, color=color, linestyle='--', linewidth=1)
-        plt.scatter(measurement_df['time'], measured_trial, marker=marker, color=color, label=trial_label)
+        plt.scatter(measurement_df['time'], measured_trial, marker=marker, color=color, label=label)
 
     # Set labels, title, and legend
     compound_name = 'Phenol' if compound == 'phe' else 'BPA'
     unit = 'mM' if compound == 'phe' else 'µM'
 
-    plt.xlabel('Time (min)')
-    plt.ylabel(f'Substrate Concentration ({unit})')
-    plt.title(f'{compound_name} Time Course Substrate Concentration Michaelis-Menten Fitting')
+    plt.xlabel('Time (min)', y=0.05)
+    plt.ylabel(f'{compound_name} Concentration ({unit})', x=0.05)
+    plt.title(f'{compound_name} Time Course Substrate Concentration Fitting')
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     plt.tight_layout()
 

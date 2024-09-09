@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-def plot_rates_vs_conc(smoothed_df, rates_df, compound='phe'):
+def plot_rates_vs_conc(smoothed_df, rates_df, compound='phe', cutoff=0):
     plt.figure(figsize=(8, 6))
 
     # define the colors and markers for each ratio and trial
@@ -24,18 +24,26 @@ def plot_rates_vs_conc(smoothed_df, rates_df, compound='phe'):
         # get the color and marker for each ratio and trial
         color = ratio_to_color[col.split(' ')[0]]
         marker = trial_to_marker[col.split(' ')[2]]
-        # remove the last word from the column name to get label
-        label = ' '.join(col.split(' ')[:-1])
+
+        # isolate the ratio to use in legend
+        label = col.split(' ')[0]
 
         plt.plot(smoothed_df[col], rates_df[f'{col} rate'], marker=marker, color=color, linewidth=.5, markersize=4, label=label)
+
+    # Add a dashed line at y = cutoff value
+    plt.axhline(y=cutoff, color='red', linestyle='--', linewidth=1)
 
     # Setting labels, title, and legend
     compound_name = 'Phenol' if compound == 'phe' else 'BPA'
     unit = 'mM' if compound == 'phe' else 'µM'
-    plt.xlabel(f'{compound_name} Concentration ({unit})')
-    plt.ylabel(f'Enzymatic Rate ({unit}/min)')
-    plt.title(f'The Effect of HRP:Hydrogen Peroxide Ratio on Enzymatic Rate vs. {compound_name} Concentration')
-    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    plt.xlabel(f'{compound_name} Concentration ({unit})', y=0.05)
+    plt.ylabel(f'Enzymatic Rate ({unit}/min)', x=0.05)
+    plt.title(f'The Effect of HRP:Hydrogen Peroxide Ratio\n on Enzymatic Rate vs. {compound_name} Concentration', y=1.01)
+    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), fontsize=12)
+
+    # ensure the both axes starts at 0
+    plt.ylim(0)
+    plt.xlim(0)
 
     # save to figures directory
     plt.savefig(f'../figures/rates_vs_conc_{compound}.png', bbox_inches='tight', dpi=300)
