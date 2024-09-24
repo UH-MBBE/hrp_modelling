@@ -68,14 +68,13 @@ def plot_rates_vs_conc_fit(smoothed_df, rates_df, param_df, compound='phe', cuto
 
     # Setting labels, title, and legend
     compound_name = 'Phenol' if compound == 'phe' else 'BPA'
-    unit = 'mM' if compound == 'phe' else 'µM'
-    plt.xlabel(f'{compound_name} Concentration ({unit})', y=0.05)
-    plt.ylabel(f'Enzymatic Rate ({unit}/min)', x=0.05)
-    plt.title(f'The Effect of HRP:Hydrogen Peroxide Ratio\n on Enzymatic Rate vs. {compound_name} Concentration', y=1.01)
+    plt.xlabel(f'{compound_name} Concentration µM', y=0.05)
+    plt.ylabel(f'Enzymatic Rate (µM/min)', x=0.05)
+    plt.title(f'The Effect of Hydrogen Peroxide:{compound_name} Ratio\n on Enzymatic Rate vs. {compound_name} Concentration', y=1.01)
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
     # ensure the both axes starts at 0
-    plt.ylim(0)
+    plt.ylim(0, 25)
     plt.xlim(0)
 
     # save to figures directory

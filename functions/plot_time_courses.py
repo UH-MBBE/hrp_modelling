@@ -46,7 +46,7 @@ def plot_time_courses(param_df, measurement_df, compound='phe', max_time=20):
     Plots the time courses for multiple trials of the same compound.
     Each trial is plotted with different colors and markers.
     """
-    # Define colors and markers for different HRP:Hydrogen Peroxide ratios and trials
+    # Define colors and markers for different Hydrogen Peroxide:Phenolic ratios and trials
     ratio_to_color = {
         '1:1': 'green',
         '2:1': 'blue',
@@ -82,7 +82,7 @@ def plot_time_courses(param_df, measurement_df, compound='phe', max_time=20):
         S_t = S_t[:max_time + 1]
 
         # Extract the color and marker for plotting based on the trial
-        ratio = trial_label.split(' ')[0]  # Extract HRP:Hydrogen Peroxide ratio
+        ratio = trial_label.split(' ')[0]  # Extract Hydrogen Peroxide:Phenolic ratio
         trial_num = trial_label.split(' ')[2]  # Extract trial number
         
         color = ratio_to_color.get(ratio, 'black')  # Default to black if not found
@@ -94,11 +94,13 @@ def plot_time_courses(param_df, measurement_df, compound='phe', max_time=20):
 
     # Set labels, title, and legend
     compound_name = 'Phenol' if compound == 'phe' else 'BPA'
-    unit = 'mM' if compound == 'phe' else 'µM'
+
+    # ensure the y axis starts at 0
+    plt.ylim(0, 100)
 
     plt.xlabel('Time (min)', y=0.05)
-    plt.ylabel(f'{compound_name} Concentration ({unit})', x=0.05)
-    plt.title(f'{compound_name} Time Course Substrate Concentration Fitting')
+    plt.ylabel(f'{compound_name} Concentration (µM)', x=0.05)
+    plt.title(f'{compound_name} Time Course Substrate Concentration Fitting', y=1.05)
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     plt.tight_layout()
 

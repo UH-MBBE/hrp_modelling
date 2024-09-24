@@ -40,7 +40,7 @@ def plot_smoothed_data(measured_df, smoothed_df, compound='phe'):
     compound_name = 'Phenol' if compound == 'phe' else 'BPA'
     plt.xlabel('Time (minutes)', y=0.05)
     plt.ylabel(f'Relative {compound_name} Concentration', x=0.05)
-    plt.title(f'Effect of HRP:Hydrogen Peroxide Ratio on {compound_name} Removal', y=1.05)
+    plt.title(f'Effect of Hydrogen Peroxide:{compound_name} Ratio on {compound_name} Removal', y=1.05)
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5), fontsize=12)
 
     # ensure the y axis starts at 0
